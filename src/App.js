@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from 'react';
 
 function App() {
+  const [dias,setDias]=useState(['Lunes','Miércoles'])
+
+  function cambioDias(e) {
+    const opciones = e.target.options
+    const seleccionadas = []
+    for (let i = 0; i < opciones.length; i++) {
+      if (opciones[i].selected) {
+        seleccionadas.push(opciones[i].value)
+      }      
+    }    
+    setDias(seleccionadas)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <p><select multiple value={dias} onChange={cambioDias}>
+      <option>Lunes</option>
+      <option>Martes</option>
+      <option>Miércoles</option>
+      <option>Jueves</option>
+      <option>Viernes</option>
+      <option>Sábado</option>
+      <option>Domingo</option>
+      </select></p>
+      Días seleccionados:{dias.map((dia)=>{
+          return (<p>{dia}</p>)
+        }
+        )}
     </div>
   );
 }
